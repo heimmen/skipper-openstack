@@ -28,7 +28,13 @@ module.exports = function SwiftStore(globalOpts) {
             });
         },
 
-        rm: function(fd, cb) { return cb(new Error('TODO')); },
+        rm: function(options, file, callback) {
+            var client = getClient(options.credentials);
+            
+            client.removeFile(options.container, file, function(error) {
+                return callback(error);
+            }); 
+        },
 
         ls: function(options, callback) {
             var client = getClient(options.credentials);
